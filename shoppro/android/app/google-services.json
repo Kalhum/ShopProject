@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "574293231",
+    "project_id": "authtutorial-630a5",
+    "storage_bucket": "authtutorial-630a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574293231:android:92a87f13041f1b2cf8c71a",
+        "android_client_info": {
+          "package_name": "com.example.shoppro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBZ1vJT468Qr0zSd6Rj49-vZwV0KNKXCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

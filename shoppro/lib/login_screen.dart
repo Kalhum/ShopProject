@@ -1,18 +1,68 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoppro/components/my_button.dart';
 import 'package:shoppro/components/my_textfield.dart';
 import 'package:shoppro/components/square_til.dart';
+import 'package:shoppro/services/auth_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   // text editing controller
   final usernameControler = TextEditingController();
   final passwordController = TextEditingController();
 
-  // sign user in method
+  void signUserIn() async {
+    // show loading circle
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
 
-  void singUserIn() {}
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: usernameControler.text, password: passwordController.text);
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'user-not-found') {
+        showEmailMessage();
+        // print("Error code: ${e.code}");
+      } else if (e.code == 'wrong-password') {
+        showPasswordMessage();
+        // print("Error code: ${e.code}");
+      }
+    }
+  }
+
+  // sign user in method
+  void showEmailMessage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text("Incorrect Email"),
+          );
+        });
+  }
+
+  void showPasswordMessage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text("Incorrect Password"),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +113,6 @@ class LoginScreen extends StatelessWidget {
                 hintText: "Enter your password",
                 obscureText: true,
               ),
-
               // forget password?
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -77,10 +126,13 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              // singin button
-              MyButton(
-                onTap: singUserIn,
+
+              SizedBox(
+                height: 20,
               ),
+
+              // singin button
+              MyButton(onTap: signUserIn , textButton: "Sign In"),
 
               const SizedBox(
                 height: 25,
@@ -119,14 +171,18 @@ class LoginScreen extends StatelessWidget {
               ),
 
               //google + apple sign in buttons
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SquareTil(imagePaht: 'lib/image/Google_Logo.png'),
+                  SquareTil(
+                    onTap: () => AuthService().singInwithGoolgle(),
+                    imagePath: 'assets/image/Google_Logo.png'),
                   SizedBox(
                     width: 10,
                   ),
-                  SquareTil(imagePaht: 'lib/image/Apple_Logo.png'),
+                  SquareTil(
+                    onTap: (){},
+                    imagePath: 'assets/image/Apple_Logo.png'),
                 ],
               ),
 

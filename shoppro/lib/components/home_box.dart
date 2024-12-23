@@ -80,11 +80,14 @@ class Home_box extends StatelessWidget {
                       ],
                     ),
                     Button_homeBox(
-                      onTap: (){
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=> Detail_screen()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Detail_screen()));
                       },
                       textBtn: 'Detail',
-                    )
+                    ),
                   ],
                 ),
               ),

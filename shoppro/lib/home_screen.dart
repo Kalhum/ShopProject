@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoppro/components/home_box.dart';
 import 'package:shoppro/components/my_button.dart';
+import 'package:shoppro/login_screen.dart';
 import 'package:shoppro/menu_page_sceen.dart';
 
 class Home_screen extends StatefulWidget {
@@ -11,8 +14,23 @@ class Home_screen extends StatefulWidget {
 }
 
 class _Home_screenState extends State<Home_screen> {
-  void singUserOut() {
-    FirebaseAuth.instance.signOut();
+  void signUserOut(context) async {
+    await FirebaseAuth.instance.signOut(); // ล็อกเอาท์
+    print('User logged out');
+
+    // Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+
+
+    // final user = FirebaseAuth.instance.currentUser;
+
+    // if (user != null) {
+    //   print('User still logged in: ${user.email}');
+    // } else {
+    //   print('Successfully logged out. No user is logged in.');
+
+    //   Navigator.pushReplacement(
+    //       context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    // }
   }
 
   final user = FirebaseAuth.instance.currentUser!;
@@ -101,7 +119,7 @@ class _Home_screenState extends State<Home_screen> {
                                       )),
                                   IconButton(
                                       onPressed: () {
-                                        singUserOut();
+                                        signUserOut(context);
                                       },
                                       icon: Icon(
                                         Icons.logout,

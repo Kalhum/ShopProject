@@ -4,7 +4,7 @@ class Button_homeBox extends StatelessWidget {
   Function()? onTap;
   String textBtn = "";
 
-  Button_homeBox({super.key , required this.onTap , required this.textBtn});
+  Button_homeBox({super.key, required this.onTap, required this.textBtn});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,8 @@ class Button_homeBox extends StatelessWidget {
           color: Colors.orange,
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Text(textBtn,
+        child: Text(
+          textBtn,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
